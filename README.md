@@ -36,7 +36,7 @@ Each folder may also contain a test subdirectory used only for internal testing 
 ## Running Tests
 Run all tests: `npm run test`
 
-Run a specific test file: npm run test path/to/TestFile.t.sol
+Run a specific test file: `npm run test path/to/TestFile.t.sol`
 
 ##  License
 Each subdirectory may include its own license file. If one exists, it takes precedence for all contents in that folder. Otherwise, refer to the license file at the root of this repository.
