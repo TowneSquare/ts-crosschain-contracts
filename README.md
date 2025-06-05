@@ -1,6 +1,6 @@
-# TownSq LifeLine Contracts
+# TownSq Cross-Chain Contracts
 
-This repository contains the smart contracts powering the TownSq Lifeline Lending Protocol.
+This repository contains the smart contracts powering the TownSq Cross-Chain Lending Protocol.
 
 ## Quick Start
 
