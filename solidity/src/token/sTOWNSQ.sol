@@ -9,6 +9,7 @@ import {ISTownsqRewardsDistributor} from "../interfaces/rewards/ISTownsqRewardsD
 
 contract sTOWNSQ is ERC20Upgradeable, OwnableUpgradeable {
     using SafeERC20 for IERC20;
+    
 
     event Staked(address indexed staker, uint256 amount);
     event UnstakeRequested(
