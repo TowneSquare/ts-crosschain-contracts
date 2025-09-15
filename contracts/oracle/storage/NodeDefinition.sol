@@ -4,7 +4,7 @@ pragma solidity 0.8.23;
 library NodeDefinition {
     enum NodeType {
         NONE,
-        CHAINLINK,
+        REDSTONE,
         PYTH,
         PRICE_DEVIATION_CIRCUIT_BREAKER,
         PRICE_DEVIATION_SAME_ORACLE_CIRCUIT_BREAKER,

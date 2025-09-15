@@ -6,6 +6,7 @@ import "../libraries/Messages.sol";
 interface IBridgeAdapter {
     event SendMessage(bytes32 operationId, Messages.MessageToSend message);
     event ReceiveMessage(bytes32 indexed messageId);
+    
 
     error ChainAlreadyAdded(uint16 chainId);
     error ChainUnavailable(uint16 chainId);

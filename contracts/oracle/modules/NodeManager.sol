@@ -7,7 +7,7 @@ import "../nodes/ConstantNode.sol";
 import "../nodes/ReducerNode.sol";
 import "../nodes/StalenessCircuitBreakerNode.sol";
 import "../nodes/ExternalNode.sol";
-import "../nodes/ChainlinkNode.sol";
+import "../nodes/RedStoneNode.sol";
 import "../nodes/PythNode.sol";
 import "../nodes/PriceDeviationSameOracleCircuitBreakerNode.sol";
 import "../nodes/PriceDeviationCircuitBreakerNode.sol";
@@ -128,8 +128,8 @@ contract NodeManager is INodeManager {
         if (nodeDefinition.nodeType == NodeDefinition.NodeType.STALENESS_CIRCUIT_BREAKER) {
             return StalenessCircuitBreakerNode.process(_processParentsNode(nodeDefinition), nodeDefinition.parameters);
         }
-        if (nodeDefinition.nodeType == NodeDefinition.NodeType.CHAINLINK) {
-            return ChainlinkNode.process(nodeDefinition.parameters);
+        if (nodeDefinition.nodeType == NodeDefinition.NodeType.REDSTONE) {
+            return RedStoneNode.process(nodeDefinition.parameters);
         }
         if (nodeDefinition.nodeType == NodeDefinition.NodeType.PYTH) {
             return PythNode.process(nodeDefinition.parameters);
@@ -166,8 +166,8 @@ contract NodeManager is INodeManager {
         if (nodeDefinition.nodeType == NodeDefinition.NodeType.STALENESS_CIRCUIT_BREAKER) {
             return StalenessCircuitBreakerNode.isValid(nodeDefinition);
         }
-        if (nodeDefinition.nodeType == NodeDefinition.NodeType.CHAINLINK) {
-            return ChainlinkNode.isValid(nodeDefinition);
+        if (nodeDefinition.nodeType == NodeDefinition.NodeType.REDSTONE) {
+            return RedStoneNode.isValid(nodeDefinition);
         }
         if (nodeDefinition.nodeType == NodeDefinition.NodeType.PYTH) {
             return PythNode.isValid(nodeDefinition);

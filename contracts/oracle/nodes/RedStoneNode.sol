@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/utils/math/Math.sol";
 import "../storage/NodeDefinition.sol";
 import "../storage/NodeOutput.sol";
 
-library ChainlinkNode {
+library RedStoneNode {
     using SafeCast for int256;
     using Math for uint256;
 
@@ -35,7 +35,7 @@ library ChainlinkNode {
         /// @dev Adjust the price to 18 d.p.
         price = decimals > PRECISION ? price / (10 ** (decimals - PRECISION)) : price * (10 ** (PRECISION - decimals));
 
-        return NodeOutput.Data(price, updatedAt, NodeDefinition.NodeType.CHAINLINK, 0, 0);
+        return NodeOutput.Data(price, updatedAt, NodeDefinition.NodeType.REDSTONE, 0, 0);
     }
 
     /// @notice Calculates the Time-Weighted Average Price (TWAP) for a Chainlink feed from all the prices between the latest round and the latest round before the time interval.
