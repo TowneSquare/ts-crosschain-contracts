@@ -25,8 +25,8 @@ contract LayerZeroAdapter is IBridgeAdapter, AccessControlDefaultAdminRules, OAp
         bytes32 adapterAddress;
     }
 
-    mapping(uint16 townSquareChainId => lzAdapterParams) internal towneSquareChainIdToLayerZeroAdapter;
-    mapping(uint32 layerZeroChainId => uint16 townSquareChainId) internal layerZeroChainIdTotowneSquareChainId;
+    mapping(uint16 townSquareChainId => lzAdapterParams) internal townSquareChainIdToLayerZeroAdapter;
+    mapping(uint32 layerZeroChainId => uint16 townSquareChainId) internal layerZeroChainIdTotownSquareChainId;
 
 
     IBridgeRouter public immutable bridgeRouter;
@@ -90,7 +90,7 @@ contract LayerZeroAdapter is IBridgeAdapter, AccessControlDefaultAdminRules, OAp
     }
 
     function getChainAdapter(uint16 chainId) public view returns (uint32 lzChainId, bytes32 adapterAddress) {
-        lzAdapterParams memory chainAdapter = towneSquareChainIdToLayerZeroAdapter[chainId];
+        lzAdapterParams memory chainAdapter = townSquareChainIdToLayerZeroAdapter[chainId];
         if (!chainAdapter.isAvailable) revert ChainUnavailable(chainId);
 
         lzChainId = chainAdapter.lzChainId;
@@ -117,12 +117,12 @@ contract LayerZeroAdapter is IBridgeAdapter, AccessControlDefaultAdminRules, OAp
         if (isAvailable) revert ChainAlreadyAdded(townSquareChainId);
 
         // add chain
-        towneSquareChainIdToLayerZeroAdapter[townSquareChainId] = lzAdapterParams({
+        townSquareChainIdToLayerZeroAdapter[townSquareChainId] = lzAdapterParams({
             isAvailable: true,
             lzChainId: lzChainId,
             adapterAddress: adapterAddress
         });
-        layerZeroChainIdTotowneSquareChainId[lzChainId] = townSquareChainId;
+        layerZeroChainIdTotownSquareChainId[lzChainId] = townSquareChainId;
         _setPeer(lzChainId, adapterAddress);
         emit ChainAdded(townSquareChainId, lzChainId, adapterAddress);
     }
@@ -132,14 +132,14 @@ contract LayerZeroAdapter is IBridgeAdapter, AccessControlDefaultAdminRules, OAp
         (uint32 lzChainId, bytes32 adapterAddress ) = getChainAdapter(townSquareChainId);
 
         // remove chain
-        delete towneSquareChainIdToLayerZeroAdapter[townSquareChainId];
-        delete layerZeroChainIdTotowneSquareChainId[lzChainId];
+        delete townSquareChainIdToLayerZeroAdapter[townSquareChainId];
+        delete layerZeroChainIdTotownSquareChainId[lzChainId];
         _setPeer(lzChainId, bytes32(0));
         emit ChainRemoved(townSquareChainId, lzChainId, adapterAddress);
     }
 
     function isChainAvailable(uint16 chainId) public view override returns (bool) {
-        return towneSquareChainIdToLayerZeroAdapter[chainId].isAvailable;
+        return townSquareChainIdToLayerZeroAdapter[chainId].isAvailable;
     }
 
     function _lzReceive(
@@ -152,7 +152,7 @@ contract LayerZeroAdapter is IBridgeAdapter, AccessControlDefaultAdminRules, OAp
         if (address(endpoint) != msg.sender) revert OnlyEndpoint(msg.sender);
 
         // Ensure that the sender matches the expected peer for the source endpoint.
-        uint16 townSquareChainId = layerZeroChainIdTotowneSquareChainId[_origin.srcEid];
+        uint16 townSquareChainId = layerZeroChainIdTotownSquareChainId[_origin.srcEid];
         (uint32 lzChainId, bytes32 adapterAddress) = getChainAdapter(townSquareChainId);
         if (_origin.srcEid != lzChainId) revert ChainUnavailable(townSquareChainId);
         if (adapterAddress != _origin.sender) revert InvalidMessageSender(_origin.sender);
@@ -177,6 +177,7 @@ contract LayerZeroAdapter is IBridgeAdapter, AccessControlDefaultAdminRules, OAp
     function owner() public view virtual override(AccessControlDefaultAdminRules, Ownable) returns (address) {
         return AccessControlDefaultAdminRules.owner();
     }
+
 
     function setPeer(uint32 lzChainId, bytes32 adapterAddress) public override onlyRole(MANAGER_ROLE) {}
 }
