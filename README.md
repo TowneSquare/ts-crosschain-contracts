@@ -1,6 +1,6 @@
-# Hub & Spoke Lending Protocol
+# TownSquare Modular Crosschain Money Market Protocol
 
-The **Hub & Spoke Lending Protocol** is a modular cross-chain lending system that enables seamless liquidity sharing and efficient capital utilization across multiple blockchains.
+The **TownSquare Modular Crosschain Money Market Protocol** is a modular cross-chain lending system that enables seamless liquidity sharing and efficient capital utilization across multiple blockchains.
 
 It is built around a **centralized liquidity hub**, which serves as the main pool of assets, and multiple **spokes** — independent lending environments on different blockchains that connect to the hub through secure relayer communication.  
 
